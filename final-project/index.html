@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book Finder</title>
+    <meta
+      name="description"
+      content="Search books and manage a reading list using Google Books and Open Library."
+    />
+    <meta name="theme-color" content="#0b0b12" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png" />
+    <link rel="manifest" href="./assets/favicons/site.webmanifest" />
+    <link rel="shortcut icon" href="./assets/favicons/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script type="module" src="./js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand" aria-label="Book Finder">
+          <div class="brand-mark" aria-hidden="true">
+            <img class="brand-icon" src="./assets/favicons/apple-touch-icon.png" alt="" />
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">Book Finder</span>
+            <span class="brand-tag">Search + Reading List</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-link" href="#/">Home</a>
+          <a class="nav-link" href="#/list">Reading List</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container main">
+      <section class="hero" aria-label="Search">
+        <h1 class="hero-title">Find your next book.</h1>
+        <p class="hero-subtitle">
+          Search by title or author, then save it to your reading list.
+        </p>
+
+        <form id="searchForm" class="search" autocomplete="off">
+          <label class="sr-only" for="q">Search books</label>
+          <input
+            id="q"
+            name="q"
+            class="search-input"
+            type="search"
+            placeholder="Try: Dune, Tolkien, Atomic Habits..."
+            required
+          />
+
+          <label class="sr-only" for="searchType">Search type</label>
+          <select id="searchType" name="searchType" class="search-select">
+            <option value="keyword">Keyword</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="subject">Subject</option>
+          </select>
+
+          <button class="search-button" type="submit">Search</button>
+        </form>
+
+        <div class="status" aria-live="polite">
+          <div id="loading" class="loading" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <span>Searching books…</span>
+          </div>
+          <div id="message" class="message" hidden></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Results">
+        <div class="panel-head">
+          <h2 class="panel-title">Results</h2>
+          <p id="resultsMeta" class="panel-meta">Search to begin.</p>
+        </div>
+
+        <div id="results" class="results" role="list"></div>
+      </section>
+
+      <section id="view" class="panel" hidden></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>WDD 330 Final Project</span>
+        <span class="muted">Google Books + Open Library</span>
+      </div>
+    </footer>
+  </body>
+</html>
