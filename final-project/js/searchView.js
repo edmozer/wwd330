@@ -6,6 +6,7 @@ import { normalizeVolume } from "./models.js";
 let els;
 let hasUserSearched = false;
 let featuredLoaded = false;
+let loadingOffTimer;
 
 const FEATURED_SHELVES = [
   { title: "Harry Potter", query: "Harry Potter", type: "title" },
@@ -33,7 +34,16 @@ function showMessage(text) {
 }
 
 function setLoading(isLoading) {
+  if (loadingOffTimer) {
+    window.clearTimeout(loadingOffTimer);
+    loadingOffTimer = undefined;
+  }
   setHidden(els.loading, !isLoading);
+}
+
+function setLoadingOffDelayed(delayMs = 900) {
+  if (loadingOffTimer) window.clearTimeout(loadingOffTimer);
+  loadingOffTimer = window.setTimeout(() => setHidden(els.loading, true), delayMs);
 }
 
 function renderCard(book) {
@@ -92,7 +102,8 @@ async function loadFeaturedShelves() {
   if (featuredLoaded) return;
   if (window.location.hash && window.location.hash !== "#/" && window.location.hash !== "#") return;
 
-  setLoading(true);
+  // Featured picks should not show the "Searching books..." loader.
+  setLoading(false);
   showMessage("");
   clear(els.results);
   els.results.classList.remove("results");
@@ -169,7 +180,8 @@ async function onSubmit(e) {
     els.resultsMeta.textContent = "Error";
     showMessage(err instanceof Error ? err.message : "Search failed");
   } finally {
-    setLoading(false);
+    // Keep the loader briefly so the state change feels intentional.
+    setLoadingOffDelayed(900);
   }
 }
 
